@@ -46,24 +46,17 @@ Possible values: `{user: '', pass: ''}` or `{username: '', password: ''}` or `{'
 
 Mandatory and used for Basic Authentication.
 
-#### options.type
-Type: `String`
-Default value: `'arl'`
-Possible values: `'arl'` or `'cpcode'`
-
-arl or cpcode. Requests of type arl can include ARLs, URLs, or both.
-
-#### options.domain
+#### options.network
 Type: `String`
 Default value: `'production'`
 Possible values: `'production'` or `'staging'`
 
 #### options.action
 Type: `String`
-Default value: `'remove'`
-Possible values: `'remove'` or `'invalidate'`
+Default value: `'invalidate'`
+Possible values: `'invalidate'`
 
-__remove__ deletes the content from Edge server caches. The next time an Edge server receives a request for the content, it will retrieve the current version from the origin server. If it cannot retrieve a current version, it will follow instructions in your server configuration. __invalidate__ marks the cached content as invalid. The next time a server receives a request for the content, it sends an HTTP conditional GET (If-Modified-Since) request to the origin. If the content has changed, the origin server returns a full fresh copy. Otherwise, the origin normally responds that the content has not changed, and the Edge server can serve the already-cached content.
+__invalidate__ marks the cached content as invalid. The next time a server receives a request for the content, it sends an HTTP conditional GET (If-Modified-Since) request to the origin. If the content has changed, the origin server returns a full fresh copy. Otherwise, the origin normally responds that the content has not changed, and the Edge server can serve the already-cached content.
 
 ### Request-Options
 
@@ -129,6 +122,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.2.0 - support v3 api
 ### 0.1.1 - gruntplugin keyword in package.json
 
 ### 0.1.0 - Initial Version

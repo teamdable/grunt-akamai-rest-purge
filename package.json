@@ -1,18 +1,18 @@
 {
   "name": "grunt-akamai-rest-purge",
   "description": "Purging Akamai via their Rest Interface",
-  "version": "0.1.2",
-  "homepage": "https://github.com/hereandnow/grunt-akamai-rest-purge",
+  "version": "0.2.0",
+  "homepage": "https://github.com/teamdable/grunt-akamai-rest-purge",
   "author": {
     "name": "Bastian Behrens",
     "email": "hereandnow78@googlemail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hereandnow/grunt-akamai-rest-purge.git"
+    "url": "git@github.com:teamdable/grunt-akamai-rest-purge.git"
   },
   "bugs": {
-    "url": "https://github.com/hereandnow/grunt-akamai-rest-purge/issues"
+    "url": "https://github.com/teamdable/grunt-akamai-rest-purge/issues"
   },
   "licenses": [
     {

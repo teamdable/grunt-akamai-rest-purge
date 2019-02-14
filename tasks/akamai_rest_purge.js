@@ -25,14 +25,18 @@ module.exports = function(grunt) {
 
     var options = this.options({
       method: 'post',
-      url: 'https://api.ccu.akamai.com/ccu/v2/queues/default'
     });
 
-    options.json = grunt.util._.pick(options, [
-      'type',
-      'action',
-      'domain'
-    ]);
+    if (!options.action) {
+      options.action = 'invalidate';
+    }
+
+    if (options.action === 'invalidate') {
+      const network = options.network ? options.network : 'production';
+      options.url = `https://api.ccu.akamai.com//ccu/v3/invalidate/url/${network}`;
+    } else {
+      return done(new Error(`[INVALID_ACTION] - options:${JSON.stringify(optoins)}`));
+    }
 
     options.json.objects = this.data.objects;
 
