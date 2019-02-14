@@ -8,54 +8,21 @@
 
 'use strict';
 
-const EdgeGrid = require('edgegrid');
-const path = require('path');
-
-const edgercPath = path.join(__dirname, "../.edgerc");
+const { purge } = require('akamai');
 // The section of the .edgerc file to use for authentication
-const sectionName = "default";
 // Create a new instance of the EdgeGrid signing library
-const eg = new EdgeGrid({
-    path: edgercPath,
-    section: sectionName,
-    debug: false
-});
 
 function invalidate(objects_list, cb) {
-    const purgeObj = {
-      "hostname": "bc.akamaiapibootcamp.com",
-      "objects": objects_list
-    };
-    console.info("Adding data to queue: " + JSON.stringify(purgeObj));
-
-    eg.auth({
-        path: "/ccu/v3/invalidate/url",
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: purgeObj
-    });
-
-    return eg.send(function(data, response) {
-      data = JSON.parse(data);
-
-      if (response.statusCode !== 201) {
-        console.error('[AKAMAI_PURGE_HTTP_ERROR]', response.statusCode);
-        return cb(response.statusCode, {body: response.body, data: data});
-      }
-      console.info('responseStatusCode', response.statusCode);
-      console.info('responseBody', response.body);
-      console.info("data: ", data);
-
-      return cb(null, {body: response.body, data: data});
-    });
+  return purge(objects_list)
+  .then((result) => {
+    console.info(`[INVLIDATE_AKAMAI_SUCCESS] - at:${new Date()}, result:${result}`);
+    return cb(null, result);
+  })
+  .catch((err) => {
+    console.error(`[INVALIDATE_AKAMAI_ERROR] - at:${new Date()}`, err);
+    return cb(err);
+  });
 }
-
-var formatResponse = function (response) {
-  return response.detail +
-    ' - about ' +
-    response.estimatedSeconds +
-    ' seconds are needed to complete the purge request!'
-};
 
 module.exports = function(grunt) {
 
@@ -70,7 +37,7 @@ module.exports = function(grunt) {
       console.info(`[BEGIN_INVALIDATE] - at:${new Date()}`);
       return invalidate(this.data.objects, (err, data) => {
         if (err) {
-          console.error('[AKAMAI_PURGE_ERROR]', err, data);
+          console.error('[AKAMAI_PURGE_ERROR]', err);
           return grunt.log.errorlns(err);
         }
 

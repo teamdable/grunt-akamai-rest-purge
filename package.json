@@ -1,7 +1,7 @@
 {
   "name": "grunt-akamai-rest-purge",
   "description": "Purging Akamai via their Rest Interface",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "homepage": "https://github.com/teamdable/grunt-akamai-rest-purge",
   "author": {
     "name": "Bastian Behrens",
@@ -40,7 +40,6 @@
     "purge"
   ],
   "dependencies": {
-    "edgegrid": "^3.0.5",
-    "request": "^2.36.0"
+    "akamai": "teamdable/akamai#fa8ba9a9b706a198af135d"
   }
 }
