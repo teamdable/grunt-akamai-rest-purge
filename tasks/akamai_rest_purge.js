@@ -25,6 +25,7 @@ module.exports = function(grunt) {
 
     var options = this.options({
       method: 'post',
+      json: {}
     });
 
     if (!options.action) {
