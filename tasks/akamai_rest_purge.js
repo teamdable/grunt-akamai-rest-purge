@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 
     if (options.action === 'invalidate') {
       const network = options.network ? options.network : 'production';
-      options.url = `https://api.ccu.akamai.com//ccu/v3/invalidate/url/${network}`;
+      options.url = `https://api.ccu.akamai.com/ccu/v3/invalidate/url/${network}`;
     } else {
       return done(new Error(`[INVALID_ACTION] - options:${JSON.stringify(optoins)}`));
     }
@@ -43,11 +43,15 @@ module.exports = function(grunt) {
 
     request(options, function (err, response) {
       if (err) {
+        console.error('[AKAMAI_PURGE_ERROR]', err);
         return grunt.log.errorlns(err.message);
       }
       if (response.statusCode !== 201) {
+        console.error('[AKAMAI_PURGE_HTTP_ERROR]', response.statusCode);
         return grunt.log.errorlns(response.body.detail || response.body);
       }
+
+      console.info('[DONE_AKAMAI_PURGE]', response.body);
       grunt.log.ok(formatResponse(response.body));
       done();
     });
