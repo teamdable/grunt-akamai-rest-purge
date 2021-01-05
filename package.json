@@ -40,6 +40,6 @@
     "purge"
   ],
   "dependencies": {
-    "akamai": "teamdable/akamai#fa8ba9a9b706a198af135d"
+    "akamai": "teamdable/akamai#2019b7e5de8b9bd0"
   }
 }
